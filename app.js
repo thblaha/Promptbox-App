@@ -39,66 +39,89 @@ const employeeList = [{
     phoneNum: '222-789-5231'
   }
 ];
+// while (true) {
+  const userAction = prompt('which action do you want to perform: print, verify, contains, update, add, delete');
+  switch (userAction) {
 
-// print
-for (let i = 0; i < employeeList.length; i++) {
-  let user = employeeList[i]
-  render(user.name, user.officeNum, user.phoneNum);
-}
+    case 'print':
+      {
+        for (let i = 0; i < employeeList.length; i++) {
+          let user = employeeList[i]
+          render(user.name, user.officeNum, user.phoneNum);
+        }
+        break;
+      }
+    case 'verify':
+      {
+        const verifyUser = prompt('verify by entering a name');
+        let msg = 'false';
+        for (let i = 0; i < employeeList.length; i++) {
+          if (verifyUser === employeeList[i].name) {
+            msg = 'true';
+          }
+        }
+        render(msg);
+        break;
+      }
 
-// verify
-const verifyUser = prompt('enter a name');
-for (let i = 0; i < employeeList.length; i++) {
-  if (verifyUser === employeeList) {
-    let msg = '';
-    msg = 'true'
-  } else {
-    msg = 'false';
+    case 'contains':
+      {
+        const query = prompt('contains');
+        for (let i = 0; i < employeeList.length; i++) {
+          let user = employeeList[i]
+          if (user.name.indexOf(query) !== -1) {
+            render(user.name, user.officeNum, user.phoneNum);
+          }
+        }
+        break;
+      }
+
+    case 'update':
+      {
+        const updateUser = prompt('update: begin by entering a name');
+        const updateField = prompt('enter a field to update: name, officeNum, phoneNum');
+        for (let i = 0; i < employeeList.length; i++) {
+          const user = employeeList[i]
+          if (user.name === updateUser) {
+            const updateValue = prompt('enter a value');
+            user[updateField] = updateValue;
+            render(`${user.name} ${user.officeNum} ${user.phoneNum}`);
+          }
+        }
+        break;
+      }
+
+    case 'add':
+      {
+        const name = prompt('add name');
+        const office = prompt('add office number');
+        const phone = prompt('add phone number');
+        for (let i = 0; i < employeeList.length; i++) {
+          const newUser = {
+            name: name,
+            officeNum: office,
+            phoneNum: phone
+          }
+        }
+        employeeList.push(newUser);
+        for (let i = 0; i < employeeList.length; i++) {
+          let user = employeeList[i]
+          render(user.name, user.officeNum, user.phoneNum);
+        }
+        render(employeeList.length, newUser);
+        break;
+      }
+    case 'delete':
+      {
+        const query = prompt('to delete, enter user name');
+
+        for (let i = 0; i < employeeList.length; i++) {
+          let user = employeeList[i]
+          if (user.name.indexOf(query) !== -1) {
+            employeeList.splice(i, 1);
+            render('deleted user', user.name, user.officeNum, user.phoneNum);
+          }
+        }
+        break;
+      }
   }
-}
-render(msg);
-
-contains
-const query = prompt('contains');
-for (let i = 0; i < employeeList.length; i++) {
-  let user = employeeList[i]
-  if (user.name.indexOf(query) !== -1) {
-    render(user.name, user.officeNum, user.phoneNum);
-  }
-}
-
-//update
-const updateUser = prompt('enter a name');
-for (let i = 0; i < employeeList.length; i++) {
-  const user = employeeList[i]
-  if (user.name === updateUser) {
-    const updateField = prompt('enter a field to update: name, officeNum, phoneNum');
-    const updateValue = prompt('enter a value');
-    user[updateField] = updateValue;
-    render(`${user.name} ${user.officeNum} ${user.phoneNum}`)
-  }
-
-add
-const name = prompt('add name');
-const office = prompt('add office number');
-const phone = prompt('add phone number');
-const newUser = {
-  name: name,
-  officeNum: office,
-  phoneNum: phone
-}
-employeeList.push(newUser);
-for (let i = 0; i < employeeList.length; i++){
-  let user = employeeList[i]
-  render(user.name, user.officeNum, user.phoneNum);
-}
-
-delete
-const query = prompt('contains');
-for (let i = 0; i < employeeList.length; i++) {
-  let user = employeeList[i]
-  if (user.name.indexOf(query) !== -1) {
-       employeeList.splice(i, 1);
-    render(user.name, user.officeNum, user.phoneNum);
-  }
-}
