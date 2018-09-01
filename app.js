@@ -41,7 +41,7 @@ const employeeList = [{
 ];
 
 
-const userAction = prompt('which action do you want to perform: print, verify, lookup, contains, update, add, delete');
+const userAction = prompt('which action do you want to perform: print, verify, lookup, contains, update, add, delete, office number');
 switch ((userAction || '').toLowerCase()) {
 
   case 'print':
@@ -138,5 +138,16 @@ switch ((userAction || '').toLowerCase()) {
 
       break;
     }
-    // }
+  case 'office number':
+    {
+      const query = prompt('find user by office number');
+
+      for (let i = 0; i < employeeList.length; i++) {
+        let user = employeeList[i]
+        if (user.officeNum === Number(query)) {
+          render(user.name, user.officeNum, user.phoneNum);
+        }
+      }
+      break;
+    }
 }
